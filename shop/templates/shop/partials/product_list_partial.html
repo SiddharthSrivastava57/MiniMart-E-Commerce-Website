@@ -1,8 +1,17 @@
-
+<!-- shop/templates/shop/partials/product_list_partial.html -->
 
 <div class="product-grid">
     {% for product in products %}
         <div class="product-card">
+            <!-- Product Image -->
+            {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+            {% else %}
+                <div class="product-image-placeholder">
+                    <span>📦</span>
+                </div>
+            {% endif %}
+            
             <h3>{{ product.name }}</h3>
             <p class="category">{{ product.category.name }}</p>
             <p class="description">{{ product.description|truncatewords:20 }}</p>

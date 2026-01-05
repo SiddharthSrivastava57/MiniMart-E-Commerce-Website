@@ -86,12 +86,21 @@ def remove_from_wishlist(request, product_id):
         
         messages.success(request, f'{product.name} removed from wishlist.')
         
-        # Return the updated button HTML for HTMX to swap
-        context = {
-            'product': product,
-            'in_wishlist': False
-        }
-        return render(request, 'shop/partials/wishlist_button.html', context)
+        # Check if request is from wishlist page or product list
+        # If from wishlist page, return empty (to remove the card)
+        # If from product list, return updated button
+        referer = request.headers.get('HX-Current-URL', '')
+        
+        if 'wishlist' in referer:
+            # From wishlist page - return empty to remove the card
+            return render(request, 'shop/partials/empty.html')
+        else:
+            # From product list - return updated button
+            context = {
+                'product': product,
+                'in_wishlist': False
+            }
+            return render(request, 'shop/partials/wishlist_button.html', context)
     
     return redirect('product_list')
 
