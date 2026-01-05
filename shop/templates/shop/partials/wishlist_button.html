@@ -1,0 +1,27 @@
+
+
+{% if user.is_authenticated %}
+    {% if in_wishlist %}
+        <!-- Remove from Wishlist Button -->
+        <button 
+            hx-post="{% url 'remove_from_wishlist' product.id %}"
+            hx-target="#wishlist-btn-{{ product.id }}"
+            hx-swap="innerHTML"
+            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+            class="btn btn-remove">
+            ❤️ In Wishlist
+        </button>
+    {% else %}
+        <!-- Add to Wishlist Button -->
+        <button 
+            hx-post="{% url 'add_to_wishlist' product.id %}"
+            hx-target="#wishlist-btn-{{ product.id }}"
+            hx-swap="innerHTML"
+            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+            class="btn btn-primary">
+            🤍 Add to Wishlist
+        </button>
+    {% endif %}
+{% else %}
+    <a href="{% url 'login' %}" class="btn btn-secondary">Login to Wishlist</a>
+{% endif %}

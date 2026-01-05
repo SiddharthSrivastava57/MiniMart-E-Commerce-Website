@@ -1,0 +1,47 @@
+
+
+{% extends 'base.html' %}
+
+{% block title %}Products - ProductWish{% endblock %}
+
+{% block content %}
+<h1>Our Products</h1>
+
+<!-- Sorting Controls -->
+<div class="sort-controls">
+    <label>Sort by:</label>
+    
+    <button 
+        hx-get="{% url 'product_list' %}?sort=name" 
+        hx-target="#product-container" 
+        hx-swap="innerHTML"
+        hx-push-url="true"
+        class="btn {% if current_sort == 'name' %}btn-active{% endif %}">
+        Name (A-Z)
+    </button>
+    
+    <button 
+        hx-get="{% url 'product_list' %}?sort=price_low" 
+        hx-target="#product-container" 
+        hx-swap="innerHTML"
+        hx-push-url="true"
+        class="btn {% if current_sort == 'price_low' %}btn-active{% endif %}">
+        Price (Low to High)
+    </button>
+    
+    <button 
+        hx-get="{% url 'product_list' %}?sort=price_high" 
+        hx-target="#product-container" 
+        hx-swap="innerHTML"
+        hx-push-url="true"
+        class="btn {% if current_sort == 'price_high' %}btn-active{% endif %}">
+        Price (High to Low)
+    </button>
+</div>
+
+
+<div id="product-container">
+    {% include 'shop/partials/product_list_partial.html' %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+
+
+{% extends 'base.html' %}
+
+{% block title %}Logged Out - ProductWish{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <h2>You've been logged out</h2>
+    <p>Thanks for using MiniCart!</p>
+    
+    <a href="{% url 'login' %}" class="btn btn-primary">Login Again</a>
+    <a href="{% url 'product_list' %}" class="btn btn-secondary">Back to Products</a>
+</div>
+{% endblock %}
